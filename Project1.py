@@ -61,43 +61,52 @@ def cmdAddToInventory():
 # create a function for place order button
 def cmdPlaceOrder():
     global vanilla, chocolate, sprinkles, whippedCream, hotFudge, scoopFlavor, sales , profit, expenses
+    
+    # reset order total at beginning of each order form
     orderTotal = 0
     print("cmdPlaceOrder Called")
     scoops = float(entScoops.get())
     
-    if scoopFlavor == 1:
+    if scoopFlavor.get() == 1:    # check if vanilla is checked
         if scoops == 1:
-            orderTotal = orderTotal + 3
-            vanilla = vanilla - 4
-        elif scoops > 1:
-            orderTotal = orderTotal + 3 + ((scoops - 1) * 1)
-            vanilla = vanilla - (scoops * 4)
-    else:
+            orderTotal += 3
+            vanilla -= 4
+        elif scoops > 1:      
+            orderTotal += 3 + ((scoops - 1) * 1)
+            vanilla -= (scoops * 4)
+    else:     
         if scoops == 1:
-            orderTotal = orderTotal + 3
-            chocolate = chocolate - 4
+            orderTotal += 3
+            chocolate -= 4
         elif scoops > 1:
-            orderTotal = orderTotal + 3 + ((scoops - 1) * 1)
-            chocolate = chocolate - (scoops * 4)
+            orderTotal += 3 + ((scoops - 1) * 1)
+            chocolate -= (scoops * 4)
     
     # determine if add sprinkles is checked
     if varAddSprinkles.get() == 1:
-        sprinkles = sprinkles - 0.25 
+        sprinkles -=  0.25 
         
     # determine if add whippedCream is checked
     if varAddWhippedCream.get() == 1:
-        whippedCream = whippedCream - 1
+        whippedCream -= 1
         
     # determine if add hotFudge is checked
     if varAddHotFudge.get() == 1:
-        hotFudge = hotFudge - 0.5
+        hotFudge -= 0.5
         
     sales = sales + orderTotal
     profit = sales - expenses
+    
     # output financial data
     lblSales.config(text=sales)
-    
     lblProfit.config(text=profit) 
+    
+    #output updated inventory
+    lblVanilla.config(text=vanilla)
+    lblChocolate.config(text=chocolate)
+    lblSprinkles.config(text=sprinkles)
+    lblWhippedCream.config(text=whippedCream)
+    lblHotFudge.config(text=hotFudge)
 
     
 
