@@ -67,18 +67,18 @@ def cmdPlaceOrder():
     if scoopFlavor == 1:
         if scoops == 1:
             orderTotal = orderTotal + 3
-            vanilla = float(vanilla) - 4
+            vanilla = vanilla - 4
         elif scoops > 1:
             orderTotal = orderTotal + 3 + (scoops * 1)
-            vanilla = float(vanilla) - (scoops * 4)
+            vanilla = vanilla - (scoops * 4)
         
     else:
         if scoops == 1:
             orderTotal = orderTotal + 3
-            chocolate = float(chocolate) - 4
+            chocolate = chocolate - 4
         elif scoops > 1:
             orderTotal = orderTotal + 3 + (scoops * 1)
-            chocolate = float(chocolate) - (scoops * 4)
+            chocolate = chocolate - (scoops * 4)
     
     # determine if add sprinkles is checked
     if varAddSprinkles.get() == 1:
