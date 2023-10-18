@@ -56,9 +56,8 @@ def cmdAddToInventory():
     lblWhippedCream.config(text=whippedCream)
     lblHotFudge.config(text=hotFudge)
     
-    
-    
-  ##################################################################################################  
+     
+  ########################################################################################
 # create a function for place order button
 def cmdPlaceOrder():
     global orderTotal, vanilla, chocolate, sprinkles, whippedCream, hotFudge
@@ -130,8 +129,7 @@ def cmdGetFinancialData():
     cmdGetProfit()
 
 
-#######################################################################################################
-
+#############################################################################################
 
 
 root = Tk()
