@@ -60,7 +60,8 @@ def cmdAddToInventory():
   ########################################################################################
 # create a function for place order button
 def cmdPlaceOrder():
-    global orderTotal, vanilla, chocolate, sprinkles, whippedCream, hotFudge
+    global vanilla, chocolate, sprinkles, whippedCream, hotFudge, scoopFlavor, sales , profit, expenses
+    orderTotal = 0
     print("cmdPlaceOrder Called")
     scoops = float(entScoops.get())
     
@@ -69,35 +70,30 @@ def cmdPlaceOrder():
             orderTotal = orderTotal + 3
             vanilla = vanilla - 4
         elif scoops > 1:
-            orderTotal = orderTotal + 3 + (scoops * 1)
+            orderTotal = orderTotal + 3 + ((scoops - 1) * 1)
             vanilla = vanilla - (scoops * 4)
-        
     else:
         if scoops == 1:
             orderTotal = orderTotal + 3
             chocolate = chocolate - 4
         elif scoops > 1:
-            orderTotal = orderTotal + 3 + (scoops * 1)
+            orderTotal = orderTotal + 3 + ((scoops - 1) * 1)
             chocolate = chocolate - (scoops * 4)
     
     # determine if add sprinkles is checked
     if varAddSprinkles.get() == 1:
-        sprinkles = float(sprinkles) - 0.25 
+        sprinkles = sprinkles - 0.25 
         
     # determine if add whippedCream is checked
     if varAddWhippedCream.get() == 1:
-        whippedCream = float(whippedCream) - 1
+        whippedCream = whippedCream - 1
         
     # determine if add hotFudge is checked
     if varAddHotFudge.get() == 1:
-        hotFudge = float(hotFudge) - 0.5
+        hotFudge = hotFudge - 0.5
         
-    vanilla = vanilla
-    chocolate = chocolate
-    sprinkles = sprinkles
-    whippedCream = whippedCream
-    hotFudge = hotFudge
-    
+    sales = sales + orderTotal
+    profit = sales - expenses
     # output financial data
     lblSales.config(text=sales)
     
