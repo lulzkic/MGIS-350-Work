@@ -8,13 +8,11 @@ sprinkles = 0
 whippedCream = 0
 hotFudge = 0
 
-
 orderTotal = 0
 
 sales = 0 
 expenses = 0
 profit = 0
-
 
 
 
@@ -57,7 +55,7 @@ def cmdAddToInventory():
     lblHotFudge.config(text=hotFudge)
     
      
-  ########################################################################################
+
 # create a function for place order button
 def cmdPlaceOrder():
     global vanilla, chocolate, sprinkles, whippedCream, hotFudge, scoopFlavor, sales , profit, expenses
@@ -83,6 +81,8 @@ def cmdPlaceOrder():
         else:
             # add to user feedback messages
             lblUserFeedback.config(text="Insufficient Vanilla inventory to place the order. Add more inventory or cancel order")
+            btnPlaceOrder.grid_remove()
+            
     elif scoopFlavor.get() == 2 :  # check if chocolate is checked
         if scoops == 1 and chocolate >= 4:
             orderTotal += 3
@@ -156,15 +156,14 @@ def cmdGetFinancialData():
     cmdGetProfit()
 
 
-#############################################################################################
-
 
 root = Tk()
 root.title("Ice Cream Stand Project 1")
 root.geometry("750x300")
 
 Button(root, text="Add To Inventory", command=cmdAddToInventory).grid(row=6, column=2, sticky=W, padx=5)
-Button(root, text="Place Order", command=cmdPlaceOrder).grid(row=6, column=3, sticky=W, padx=5)
+btnPlaceOrder = Button(root, text="Place Order", command=cmdPlaceOrder).grid(row=6, column=3, sticky=W, padx=5)
+
 
 
 # inventory column
@@ -222,6 +221,7 @@ chkAddHotFudge.grid(row=5, column=2, padx=5, sticky=W)
 
 
 
+
 # order form column
 Label(root, text="ORDER FORM").grid(row=0, column=3, sticky=W)
 
@@ -248,8 +248,6 @@ varHotFudgeTopping = IntVar()
 chkHotFudge = Checkbutton(root, text="Hot Fudge", variable=varHotFudgeTopping)
 chkHotFudge.grid(row=5, column=3, sticky=W)
 
-# place order button
-btnPlaceOrder = Button(root, text="Place Order", command=cmdGetFinancialData)
 
 
 # user feedback row
@@ -257,8 +255,6 @@ btnPlaceOrder = Button(root, text="Place Order", command=cmdGetFinancialData)
 Label(root, text="USER FEEDBACK:").grid(row=7, column=0, pady= 5, sticky=W)
 lblUserFeedback = Label(root, text=" ")
 lblUserFeedback.grid(row=8, column=0, columnspan=4)
-
-
 
 
 
@@ -276,7 +272,6 @@ lblExpenses.grid(row=2, column=6, sticky=W)
 Label(root, text="Profit:").grid(row=3, column=5, sticky=W)
 lblProfit = Label(root, text="$0.00")
 lblProfit.grid(row=3, column=6, sticky=W)
-
 
 
 
