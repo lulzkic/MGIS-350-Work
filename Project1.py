@@ -73,40 +73,47 @@ def cmdPlaceOrder():
     scoops = float(entScoops.get())
     
     
-    if scoopFlavor.get() == 1 and vanilla > 4:    # check if vanilla is checked
-        if scoops == 1:
+    if scoopFlavor.get() == 1:    # check if vanilla is checked
+        if scoops == 1 and vanilla >= 4:
             orderTotal += 3
             vanilla -= 4
-        elif scoops > 1:      
+        elif scoops > 1 and vanilla >= (scoops * 4):      
             orderTotal += 3 + ((scoops - 1) * 1)
             vanilla -= (scoops * 4)
-    elif scoopFlavor.get() == 2 and chocolate > 4:  # check if chocolate is checked
-        if scoops == 1:
+        else:
+            # add to user feedback messages
+            lblUserFeedback.config(text="Insufficient Vanilla inventory to place the order. Add more inventory or cancel order")
+    elif scoopFlavor.get() == 2 :  # check if chocolate is checked
+        if scoops == 1 and chocolate >= 4:
             orderTotal += 3
             chocolate -= 4
-        elif scoops > 1:
+        elif scoops > 1 and chocolate >= (scoops * 4):
             orderTotal += 3 + ((scoops - 1) * 1)
             chocolate -= (scoops * 4)
-    elif scoopFlavor.get() == 1 and vanilla < 4:
-        # add to user feedback messages
-        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order") 
-    elif scoopFlavor.get() == 2 and chocolate < 4:
-        # add to user feedback messages
-        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order") 
+        else:
+            # add to user feedback messages
+            lblUserFeedback.config(text="Insufficient Chocolate inventory to place the order. Add more inventory or cancel order")
         
         
     # determine if add sprinkles is checked
-    if varAddSprinkles.get() == 1:
+    if varSprinklesTopping.get() == 1 and sprinkles >= 0.25:
         sprinkles -= 0.25 
-        # else send user feedback message for insufficient inventory
+    elif varSprinklesTopping.get() == 1 and sprinkles < 0.25:
+        lblUserFeedback.config(text="Insufficient Sprinkles inventory to place the order. Add more inventory or cancel order")
+        
         
     # determine if add whippedCream is checked
-    if varAddWhippedCream.get() == 1:
-        whippedCream -= 1  # Move subtraction inside the if statement
+    if varWhippedCreamTopping.get() == 1 and whippedCream >= 1:
+        whippedCream -= 1 
+    elif varWhippedCreamTopping.get() == 1 and whippedCream < 1:
+        lblUserFeedback.config(text="Insufficient Whipped Cream inventory to place the order. Add more inventory or cancel order")
         
     # determine if add hotFudge is checked
-    if varAddHotFudge.get() == 1:
-        hotFudge -= 0.5  # Move subtraction inside the if statement
+    if varHotFudgeTopping.get() == 1 and hotFudge >= 0.5:
+        hotFudge -= 0.5 
+    elif varHotFudgeTopping.get() == 1 and hotFudge < 0.5:
+        lblUserFeedback.config(text="Insufficient Hot Fudge inventory to place the order. Add more inventory or cancel order") 
+        
         
         
     sales = sales + orderTotal
@@ -269,8 +276,6 @@ lblExpenses.grid(row=2, column=6, sticky=W)
 Label(root, text="Profit:").grid(row=3, column=5, sticky=W)
 lblProfit = Label(root, text="$0.00")
 lblProfit.grid(row=3, column=6, sticky=W)
-
-
 
 
 
