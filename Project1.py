@@ -64,35 +64,50 @@ def cmdPlaceOrder():
     
     # reset order total at beginning of each order form
     orderTotal = 0
+    
+    # reset user feedback messages
+    lblUserFeedback.config(text="")
+    
+    
     print("cmdPlaceOrder Called")
     scoops = float(entScoops.get())
     
-    if scoopFlavor.get() == 1:    # check if vanilla is checked
+    
+    if scoopFlavor.get() == 1 and vanilla > 4:    # check if vanilla is checked
         if scoops == 1:
             orderTotal += 3
             vanilla -= 4
         elif scoops > 1:      
             orderTotal += 3 + ((scoops - 1) * 1)
             vanilla -= (scoops * 4)
-    else:     
+    elif scoopFlavor.get() == 2 and chocolate > 4:  # check if chocolate is checked
         if scoops == 1:
             orderTotal += 3
             chocolate -= 4
         elif scoops > 1:
             orderTotal += 3 + ((scoops - 1) * 1)
             chocolate -= (scoops * 4)
-    
+    elif scoopFlavor.get() == 1 and vanilla < 4:
+        # add to user feedback messages
+        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order") 
+    elif scoopFlavor.get() == 2 and chocolate < 4:
+        # add to user feedback messages
+        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order") 
+        
+        
     # determine if add sprinkles is checked
     if varAddSprinkles.get() == 1:
-        sprinkles -=  0.25 
+        sprinkles -= 0.25 
+        # else send user feedback message for insufficient inventory
         
     # determine if add whippedCream is checked
     if varAddWhippedCream.get() == 1:
-        whippedCream -= 1
+        whippedCream -= 1  # Move subtraction inside the if statement
         
     # determine if add hotFudge is checked
     if varAddHotFudge.get() == 1:
-        hotFudge -= 0.5
+        hotFudge -= 0.5  # Move subtraction inside the if statement
+        
         
     sales = sales + orderTotal
     profit = sales - expenses
@@ -230,11 +245,11 @@ chkHotFudge.grid(row=5, column=3, sticky=W)
 btnPlaceOrder = Button(root, text="Place Order", command=cmdGetFinancialData)
 
 
-
 # user feedback row
  
-Label(root, text="USER FEEDBACK").grid(row=7, column=0, pady= 5, sticky=W)
-
+Label(root, text="USER FEEDBACK:").grid(row=7, column=0, pady= 5, sticky=W)
+lblUserFeedback = Label(root, text=" ")
+lblUserFeedback.grid(row=8, column=0, columnspan=4)
 
 
 
