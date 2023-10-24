@@ -71,50 +71,43 @@ def cmdPlaceOrder():
     scoops = float(entScoops.get())
     
     
-    if scoopFlavor.get() == 1:    # check if vanilla is checked
+    if scoopFlavor.get() == 1:    # check if vanilla is checked and inventory is sufficient
         if scoops == 1 and vanilla >= 4:
             orderTotal += 3
             vanilla -= 4
+            sprinklesInventory()
+            hotFudgeInventory()
+            whippedCreamInventory()
         elif scoops > 1 and vanilla >= (scoops * 4):      
             orderTotal += 3 + ((scoops - 1) * 1)
             vanilla -= (scoops * 4)
+            sprinklesInventory()
+            hotFudgeInventory()
+            whippedCreamInventory()
         else:
             # add to user feedback messages
             lblUserFeedback.config(text="Insufficient Vanilla inventory to place the order. Add more inventory or cancel order")
-            btnPlaceOrder.grid_remove()
+            btnPlaceOrder.config(state=DISABLED)
             
-    elif scoopFlavor.get() == 2 :  # check if chocolate is checked
+    elif scoopFlavor.get() == 2 :  # check if chocolate is checked and inventory is sufficient
         if scoops == 1 and chocolate >= 4:
             orderTotal += 3
             chocolate -= 4
+            sprinklesInventory()
+            hotFudgeInventory()
+            whippedCreamInventory()
         elif scoops > 1 and chocolate >= (scoops * 4):
             orderTotal += 3 + ((scoops - 1) * 1)
             chocolate -= (scoops * 4)
+            sprinklesInventory()
+            hotFudgeInventory()
+            whippedCreamInventory()
         else:
             # add to user feedback messages
             lblUserFeedback.config(text="Insufficient Chocolate inventory to place the order. Add more inventory or cancel order")
+            btnPlaceOrder.config(state=DISABLED)
         
-        
-    # determine if add sprinkles is checked
-    if varSprinklesTopping.get() == 1 and sprinkles >= 0.25:
-        sprinkles -= 0.25 
-    elif varSprinklesTopping.get() == 1 and sprinkles < 0.25:
-        lblUserFeedback.config(text="Insufficient Sprinkles inventory to place the order. Add more inventory or cancel order")
-        
-        
-    # determine if add whippedCream is checked
-    if varWhippedCreamTopping.get() == 1 and whippedCream >= 1:
-        whippedCream -= 1 
-    elif varWhippedCreamTopping.get() == 1 and whippedCream < 1:
-        lblUserFeedback.config(text="Insufficient Whipped Cream inventory to place the order. Add more inventory or cancel order")
-        
-    # determine if add hotFudge is checked
-    if varHotFudgeTopping.get() == 1 and hotFudge >= 0.5:
-        hotFudge -= 0.5 
-    elif varHotFudgeTopping.get() == 1 and hotFudge < 0.5:
-        lblUserFeedback.config(text="Insufficient Hot Fudge inventory to place the order. Add more inventory or cancel order") 
-        
-        
+  
         
     sales = sales + orderTotal
     profit = sales - expenses
@@ -130,8 +123,38 @@ def cmdPlaceOrder():
     lblWhippedCream.config(text=whippedCream)
     lblHotFudge.config(text=hotFudge)
 
-    
 
+# determine if add sprinkles is checked and inventory is sufficient 
+def sprinklesInventory():
+    global sprinkles
+    if varSprinklesTopping.get() == 1 and sprinkles >= 0.25:
+        sprinkles -= 0.25 
+    elif varSprinklesTopping.get() == 1 and sprinkles < 0.25:
+        lblUserFeedback.config(text="Insufficient Sprinkles inventory to place the order. Add more inventory or cancel order")
+        btnPlaceOrder.config(state=DISABLED)
+                     
+
+# determine if add whippedCream is checked and inventory is sufficient 
+def whippedCreamInventory():
+    global whippedCream
+    if varWhippedCreamTopping.get() == 1 and whippedCream >= 1:
+        whippedCream -= 1 
+    elif varWhippedCreamTopping.get() == 1 and whippedCream < 1:
+        lblUserFeedback.config(text="Insufficient Whipped Cream inventory to place the order. Add more inventory or cancel order")
+        btnPlaceOrder.config(state=DISABLED)
+        
+           
+# determine if add hotFudge is checked and inventory is sufficient  
+def hotFudgeInventory():   
+    global hotFudge
+    if varHotFudgeTopping.get() == 1 and hotFudge >= 0.5:
+        hotFudge -= 0.5 
+    elif varHotFudgeTopping.get() == 1 and hotFudge < 0.5:
+        lblUserFeedback.config(text="Insufficient Hot Fudge inventory to place the order. Add more inventory or cancel order")
+        btnPlaceOrder.config(state=DISABLED)           
+            
+            
+            
 # create a function to get sales
 def cmdGetSales():
     print("cmdGetSales Called")
@@ -156,7 +179,7 @@ def cmdGetFinancialData():
     cmdGetProfit()
 
 
-
+# window
 root = Tk()
 root.title("Ice Cream Stand Project 1")
 root.geometry("750x300")

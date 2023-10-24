@@ -7,7 +7,8 @@ root.geometry("450x200")
 
 # Define collections for the accounts
 # *** INSERT CODE HERE ***
-
+checking = []             #two different ways to create an empty list 
+savings = list()
 
 def cmdSubmit():
     print("fnSubmit called")
@@ -17,6 +18,14 @@ def cmdSubmit():
     # Insert value into collection based on which account is selected
 
     # *** INSERT CODE HERE ***
+    # Output what the user selected
+    print("Account Selected:", cboAccounts.get())
+    
+    # Test to determine which account was selected
+    if cboAccounts.get() == "Checking":
+        checking.append(value)
+    elif cboAccounts.get() == "Savings":
+        savings.append(value)
     
     # Update Output
     fnDisplayTransactionsAndBalance()
@@ -34,9 +43,14 @@ def fnDisplayTransactionsAndBalance():
     balance = 0
 
     # *** INSERT CODE HERE ***
+    if cboAccounts.get() == "Checking":
+        # loop through the checking values and add them one at a time to the listbox
+        for row in checking:  #for variable name in list    
+            lstTransactions.insert(END, row)
+    
     
     # Displaying the balance
-    lblBalance.config(text='${:9,.2f}'.format(balance))
+    lblBalance.config(text='${:9,.2f}'.format(balance))    # makes text look like us currency
 
 
 # Setting up input controls
