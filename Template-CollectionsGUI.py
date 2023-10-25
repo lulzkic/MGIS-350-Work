@@ -38,14 +38,20 @@ def cmdRemove():
     fnDisplayTransactionsAndBalance()
 
 
-def fnDisplayTransactionsAndBalance():
+def fnDisplayTransactionsAndBalance(event=None):
     print("fnDisplayTransactionsAndBalance called")
     balance = 0
+
+    # clear the current listbox
+    lstTransactions.delete(0, END)
 
     # *** INSERT CODE HERE ***
     if cboAccounts.get() == "Checking":
         # loop through the checking values and add them one at a time to the listbox
         for row in checking:  #for variable name in list    
+            lstTransactions.insert(END, row)
+    elif cboAccounts.get() == "Savings":
+        for row in savings:   
             lstTransactions.insert(END, row)
     
     
@@ -70,6 +76,8 @@ rd2.grid(row=3, column=0, sticky=W)
 # *** INSERT CODE HERE FOR COMBOBOX ***
 cboAccounts = ttk.Combobox(root, values = ["Checking", "Savings"])    #provides list of text to combobox
 cboAccounts.grid(row=1, column=1, sticky=W)
+# Bind the selected event to display function
+cboAccounts.bind("<<ComboboxSelected>>", fnDisplayTransactionsAndBalance)
 
 
 # Setting up balance controls
