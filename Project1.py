@@ -53,6 +53,8 @@ def cmdAddToInventory():
     lblSprinkles.config(text=sprinkles)
     lblWhippedCream.config(text=whippedCream)
     lblHotFudge.config(text=hotFudge)
+    
+    print("cmdAddToInventory Called")
      
 
 # create a function for place order button
