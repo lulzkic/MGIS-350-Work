@@ -53,7 +53,6 @@ def cmdAddToInventory():
     lblSprinkles.config(text=sprinkles)
     lblWhippedCream.config(text=whippedCream)
     lblHotFudge.config(text=hotFudge)
-    
      
 
 # create a function for place order button
@@ -86,7 +85,7 @@ def cmdPlaceOrder():
             whippedCreamInventory()
         else:
             # add to user feedback messages
-            lblUserFeedback.config(text="Insufficient Vanilla inventory to place the order. Add more inventory or cancel order")
+            lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order")
             btnPlaceOrder.config(state=DISABLED)
             
     elif scoopFlavor.get() == 2 :  # check if chocolate is checked and inventory is sufficient
@@ -104,10 +103,9 @@ def cmdPlaceOrder():
             whippedCreamInventory()
         else:
             # add to user feedback messages
-            lblUserFeedback.config(text="Insufficient Chocolate inventory to place the order. Add more inventory or cancel order")
+            lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order")
             btnPlaceOrder.config(state=DISABLED)
         
-  
         
     sales = sales + orderTotal
     profit = sales - expenses
@@ -130,7 +128,7 @@ def sprinklesInventory():
     if varSprinklesTopping.get() == 1 and sprinkles >= 0.25:
         sprinkles -= 0.25 
     elif varSprinklesTopping.get() == 1 and sprinkles < 0.25:
-        lblUserFeedback.config(text="Insufficient Sprinkles inventory to place the order. Add more inventory or cancel order")
+        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order")
         btnPlaceOrder.config(state=DISABLED)
                      
 
@@ -140,7 +138,7 @@ def whippedCreamInventory():
     if varWhippedCreamTopping.get() == 1 and whippedCream >= 1:
         whippedCream -= 1 
     elif varWhippedCreamTopping.get() == 1 and whippedCream < 1:
-        lblUserFeedback.config(text="Insufficient Whipped Cream inventory to place the order. Add more inventory or cancel order")
+        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order")
         btnPlaceOrder.config(state=DISABLED)
         
            
@@ -150,7 +148,7 @@ def hotFudgeInventory():
     if varHotFudgeTopping.get() == 1 and hotFudge >= 0.5:
         hotFudge -= 0.5 
     elif varHotFudgeTopping.get() == 1 and hotFudge < 0.5:
-        lblUserFeedback.config(text="Insufficient Hot Fudge inventory to place the order. Add more inventory or cancel order")
+        lblUserFeedback.config(text="Insufficient inventory to place the order. Add more inventory or cancel order")
         btnPlaceOrder.config(state=DISABLED)           
             
             
@@ -179,6 +177,7 @@ def cmdGetFinancialData():
     cmdGetProfit()
 
 
+
 # window
 root = Tk()
 root.title("Ice Cream Stand Project 1")
@@ -186,7 +185,6 @@ root.geometry("750x300")
 
 Button(root, text="Add To Inventory", command=cmdAddToInventory).grid(row=6, column=2, sticky=W, padx=5)
 btnPlaceOrder = Button(root, text="Place Order", command=cmdPlaceOrder).grid(row=6, column=3, sticky=W, padx=5)
-
 
 
 # inventory column
@@ -211,7 +209,6 @@ lblWhippedCream.grid(row=4, column=1, sticky=W)
 Label(root, text="Hot Fudge:").grid(row=5, column=0, sticky=W)
 lblHotFudge = Label(root, text ="0")
 lblHotFudge.grid(row=5, column=1, sticky=W)
-
 
 
 # add to inventory column
@@ -243,8 +240,6 @@ chkAddHotFudge = Checkbutton(root, text="Add 48.0 oz of Hot Fudge", variable=var
 chkAddHotFudge.grid(row=5, column=2, padx=5, sticky=W)
 
 
-
-
 # order form column
 Label(root, text="ORDER FORM").grid(row=0, column=3, sticky=W)
 
@@ -272,13 +267,11 @@ chkHotFudge = Checkbutton(root, text="Hot Fudge", variable=varHotFudgeTopping)
 chkHotFudge.grid(row=5, column=3, sticky=W)
 
 
-
 # user feedback row
  
 Label(root, text="USER FEEDBACK:").grid(row=7, column=0, pady= 5, sticky=W)
 lblUserFeedback = Label(root, text=" ")
 lblUserFeedback.grid(row=8, column=0, columnspan=4)
-
 
 
 # financial data column
@@ -295,7 +288,6 @@ lblExpenses.grid(row=2, column=6, sticky=W)
 Label(root, text="Profit:").grid(row=3, column=5, sticky=W)
 lblProfit = Label(root, text="$0.00")
 lblProfit.grid(row=3, column=6, sticky=W)
-
 
 
 root.mainloop()
