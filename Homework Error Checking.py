@@ -5,7 +5,7 @@ import traceback
 
 root = Tk()
 root.title("Error Checking")
-root.geometry("450x200")
+root.geometry("450x75")
 
 goodValues = list()
 
