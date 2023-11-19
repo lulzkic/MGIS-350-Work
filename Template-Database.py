@@ -5,6 +5,9 @@ import traceback
 import sqlite3   # Library for using the database
 import pathlib  # Library for working with the file system
 
+# A global variable for ids
+global ids
+
 
 # Test to ensure the database exists
 dbFile = pathlib.Path("C:\\Users\\user\\Documents\\MGIS 350 Work\\Template-Database.sqlite3")
@@ -55,6 +58,9 @@ def cmdSubmit():
     except sqlite3.OperationalError as oe:
         traceback.print_exc()
         messagebox.showerror("Error", "Something went wrong with the database.")
+    except:
+        traceback.print_exc()
+        messagebox.showerror("Error", "An unknown error has occurred.")
 
     # Update Output
     fnDisplayTransactionsAndBalance()
@@ -65,14 +71,22 @@ def cmdRemove():
  
     # Update Output
     fnDisplayTransactionsAndBalance()
+    fnPopulateCombobox()
 
 
 def fnDisplayTransactionsAndBalance(event=None):
     print("fnDisplayTransactionsAndBalance called")
+    
+    # Bring in the glovbal list of ids
+    global ids
+    
+    
     balance = 0
 
     # Clear the listbox
     lstTransactions.delete(0, END)
+    # Clear the ids
+    ids.clear()
     
     # *** INSERT CODE HERE ***
     #sql = "SELECT amount FROM transactions WHERE account = '" + cboAccounts.get() + "';"
@@ -86,6 +100,8 @@ def fnDisplayTransactionsAndBalance(event=None):
     for record in records:
         lstTransactions.insert(END, record[0])
         balance = balance + record[0]
+    # add the id to list of ids
+    ids.append(record[1])
     
     # Displaying the balance
     lblBalance.config(text='${:9,.2f}'.format(balance))
