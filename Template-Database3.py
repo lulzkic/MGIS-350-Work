@@ -68,7 +68,25 @@ def cmdSubmit():
 def cmdRemove():
     print("cmdRemove called")
     # *** INSERT CODE HERE ***
- 
+    # Get the selected index number form the listbox
+    selectedListboxData= lstTransactions.curselection()
+    # Get the first element from the listbox data, which should be the index number
+    selectedIndex = selectedListboxData[0]
+    # Print out the selectedIndex for debugging purposes
+    print("selectedIndex:", selectedIndex)
+    # Get the id from the l;ist of ids from the selected position
+    selectedID = ids[selectedIndex]
+    # Print our the id that should be deleted for debugging purposes
+    print("ID to delete:", selectedID)
+    
+    # Query
+    sql = "DELETE FROM transactions WHERE id = ?;"
+    sql_args = [selectedID]
+    # Execute the query
+    cur.execute(sql, sql_args)
+    # Commit the changes to the database
+    conn.commit()
+    
     # Update Output
     fnDisplayTransactionsAndBalance()
 
