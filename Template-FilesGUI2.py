@@ -3,6 +3,12 @@ from tkinter import ttk
 import traceback
 from tkinter import messagebox
 
+# Set the location of the data file
+filePath = "AccountData.csv"
+
+
+
+
 root = Tk()
 root.title("Account Tracking")
 root.geometry("450x200")
@@ -10,6 +16,23 @@ root.geometry("450x200")
 # Define lists for data
 accountData = list()
 ids = list()
+
+# Functions to rad in the data and populate the accountData variable
+def fnOpenDataFile():
+    global filePath, accountData
+    # Read in the data
+    fileObject = open(filePath, "r")
+    dataSet = fileObject.read().splitlines
+    # Loop through the dataSet
+    for line in dataSet():
+        # Create a temporary variable adn set it to the line variable
+        # split by commas
+        tmp = line.split(",")
+        # DEBUGGING 
+        print("tmp:", tmp)
+    
+    # DEBUGGING
+    print("dataSet:", dataSet)
 
 def cmdSubmit():
     global changesMade
@@ -100,6 +123,9 @@ srcTransactions.grid(row=0, column=1, sticky=N+S+W)
 lstTransactions = Listbox(frmTransactions, height=5, yscrollcommand=srcTransactions.set)
 lstTransactions.grid(row=0, column=0)
 srcTransactions.config(command=lstTransactions.yview)
+
+# Open our data file
+fnOpenDataFile()
 
 # Running main program loop
 root.mainloop()
