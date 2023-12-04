@@ -30,6 +30,8 @@ def fnOpenDataFile():
         tmp = line.split(",")
         # DEBUGGING 
         print("tmp:", tmp)
+        # Add the data to the list
+        accountData.append({'amount': tmp[0], 'account': tmp[1]})
     
     # DEBUGGING
     print("dataSet:", dataSet)
